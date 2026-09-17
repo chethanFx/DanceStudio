@@ -1,6 +1,6 @@
 kind = "web"
 previewPath = "/"
-title = "Saikumar Dance Studio"
+title = "Heart Beaters - Dance Studio"
 description = "A premium, cinematic website for Saikumar Dance Studio with class discovery, studio story, social links, WhatsApp contact, and click-to-call actions."
 version = "1.0.0"
 id = "artifacts/saikumar-dance-studio"
@@ -17,7 +17,7 @@ run = "pnpm --filter @workspace/saikumar-dance-studio run dev"
 [services.production]
 build = [ "pnpm", "--filter", "@workspace/saikumar-dance-studio", "run", "build" ]
 serve = "static"
-publicDir = "artifacts/saikumar-dance-studio/dist/public"
+publicDir = "artifacts/saikumar-dance-studio/dist"
 
 [[services.production.rewrites]]
 from = "/*"

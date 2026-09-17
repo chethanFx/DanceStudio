@@ -12,13 +12,13 @@ import detailImage from './assets/dance-detail.jpg';
 
 const queryClient = new QueryClient();
 
-/** Replace the blank phone value when the studio shares its official number. */
+/** Add the studio's official phone number here when it is available. */
 const STUDIO_CONTACT = {
   phone: '',
   instagram: 'https://www.instagram.com/saikumardance_studio?stkn=b3V3ZXJxZXR4aHBp',
 };
 
-const WHATSAPP_MESSAGE = 'Hi Saikumar Dance Studio, I would love to know more about classes and trial sessions.';
+const WHATSAPP_MESSAGE = 'Hi Heart Beaters - Dance Studio, I would love to know more about classes and booking a session.';
 const WHATSAPP_LINK = `https://wa.me/?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 type RevealProps = { children: ReactNode; className?: string; delay?: 1 | 2 | 3 };
@@ -44,17 +44,17 @@ function BrandMark({ light = false }: { light?: boolean }) {
   return (
     <a href="#top" className="group inline-flex items-center gap-3" data-testid="link-brand">
       <span className={`relative grid size-10 place-items-center overflow-hidden rounded-full border ${light ? 'border-[#f6dcc0]/35 bg-[#f6dcc0]/10' : 'border-[#35192b]/20 bg-[#35192b]'}`}>
-        <span className={`font-display text-[17px] font-bold tracking-[-0.12em] ${light ? 'text-[#f3c969]' : 'text-[#f3c969]'}`}>SD</span>
+        <span className={`font-display text-[17px] font-bold tracking-[-0.12em] ${light ? 'text-[#f3c969]' : 'text-[#f3c969]'}`}>HB</span>
         <span className="absolute -bottom-3 -right-1 size-5 rounded-full bg-[#e15b37] transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
       </span>
       <span className={`font-display text-[14px] font-bold uppercase tracking-[0.1em] ${light ? 'text-[#f6dcc0]' : 'text-[#35192b]'}`}>
-        Saikumar <span className={light ? 'text-[#f3c969]' : 'text-[#e15b37]'}>Dance Studio</span>
+        Heart Beaters <span className={light ? 'text-[#f3c969]' : 'text-[#e15b37]'}>Dance Studio</span>
       </span>
     </a>
   );
 }
 
-function Header({ onBook }: { onBook: () => void }) {
+function Header({ onBook, onCall }: { onBook: () => void; onCall: () => void }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const navItems = [['Studio', '#studio'], ['Classes', '#classes'], ['The rhythm', '#rhythm'], ['Visit', '#visit']];
   return (
@@ -70,8 +70,11 @@ function Header({ onBook }: { onBook: () => void }) {
         </nav>
         <div className="hidden items-center gap-3 md:flex">
           <a href={STUDIO_CONTACT.instagram} target="_blank" rel="noreferrer" className="grid size-10 place-items-center rounded-full border border-[#f6dcc0]/25 text-[#f6dcc0] transition-all hover:border-[#f3c969] hover:text-[#f3c969]" aria-label="Open Instagram" data-testid="link-instagram-header"><SiInstagram size={15} /></a>
-          <button onClick={onBook} className="group inline-flex items-center gap-3 rounded-full bg-[#f3c969] px-5 py-3 text-[11px] font-extrabold uppercase tracking-[0.14em] text-[#35192b] transition-transform hover:-translate-y-0.5" data-testid="button-book-header">
-            Start your story <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          <button onClick={onBook} className="group inline-flex items-center gap-3 rounded-full bg-[#f3c969] px-5 py-3 text-[11px] font-extrabold uppercase tracking-[0.14em] text-[#35192b] transition-transform hover:-translate-y-0.5" data-testid="button-whatsapp-header">
+            WhatsApp <SiWhatsapp size={14} />
+          </button>
+          <button onClick={onCall} className="group inline-flex items-center gap-3 rounded-full border border-[#f6dcc0]/30 px-5 py-3 text-[11px] font-extrabold uppercase tracking-[0.14em] text-[#f6dcc0] transition-transform hover:-translate-y-0.5 hover:border-[#f3c969] hover:text-[#f3c969]" data-testid="button-call-header">
+            Call <Phone size={14} />
           </button>
         </div>
         <button onClick={() => setMenuOpen(!menuOpen)} className="grid size-11 place-items-center rounded-full border border-[#f6dcc0]/25 text-[#f6dcc0] md:hidden" aria-label={menuOpen ? 'Close menu' : 'Open menu'} data-testid="button-menu">
@@ -87,16 +90,21 @@ function Header({ onBook }: { onBook: () => void }) {
               </a>
             ))}
           </nav>
-          <button onClick={() => { setMenuOpen(false); onBook(); }} className="mt-5 flex w-full items-center justify-between rounded-xl bg-[#f3c969] px-4 py-4 text-xs font-extrabold uppercase tracking-[0.13em] text-[#35192b]" data-testid="button-book-mobile">
-            Start your story <ArrowUpRight size={16} />
-          </button>
+          <div className="mt-5 grid gap-2">
+            <button onClick={() => { setMenuOpen(false); onBook(); }} className="flex w-full items-center justify-between rounded-xl bg-[#f3c969] px-4 py-4 text-xs font-extrabold uppercase tracking-[0.13em] text-[#35192b]" data-testid="button-whatsapp-mobile">
+              Book via WhatsApp <SiWhatsapp size={16} />
+            </button>
+            <button onClick={() => { setMenuOpen(false); onCall(); }} className="flex w-full items-center justify-between rounded-xl border border-[#f6dcc0]/25 px-4 py-4 text-xs font-extrabold uppercase tracking-[0.13em] text-[#f6dcc0]" data-testid="button-call-mobile">
+              Talk to the studio <Phone size={16} />
+            </button>
+          </div>
         </div>
       )}
     </header>
   );
 }
 
-function Hero({ onBook }: { onBook: () => void }) {
+function Hero({ onBook, onCall }: { onBook: () => void; onCall: () => void }) {
   return (
     <section id="top" className="hero-grid hero-glow image-wash relative flex min-h-[760px] items-end overflow-hidden bg-[#35192b] text-[#f6dcc0] sm:min-h-[820px] lg:min-h-[900px]">
       <img src={heroImage} alt="Dancer moving through warm studio light" className="absolute inset-0 h-full w-full object-cover opacity-70" />
@@ -117,8 +125,20 @@ function Hero({ onBook }: { onBook: () => void }) {
           <Reveal delay={2}>
             <div className="mt-9 flex flex-col items-start gap-7 sm:flex-row sm:items-center">
               <p className="max-w-[335px] text-[15px] leading-7 text-[#f6dcc0]/72">A room for rhythm, rigor, and the kind of confidence that follows you out the door.</p>
-              <button onClick={onBook} className="group flex shrink-0 items-center gap-3 rounded-full bg-[#e15b37] px-6 py-4 text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#fff1df] shadow-[0_12px_30px_rgba(225,91,55,.28)] transition-transform hover:-translate-y-1" data-testid="button-book-hero">
-                Book a trial class <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="group flex shrink-0 items-center gap-3 rounded-full bg-[#e15b37] px-6 py-4 text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#fff1df] shadow-[0_12px_30px_rgba(225,91,55,.28)] transition-transform hover:-translate-y-1" data-testid="link-whatsapp-hero">
+                Book via WhatsApp <SiWhatsapp size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </div>
+          </Reveal>
+          <Reveal delay={3} className="mt-8 max-w-[780px]">
+            <div className="grid gap-3 rounded-[1.5rem] border border-[#f6dcc0]/25 bg-[#35192b]/55 p-3 backdrop-blur-md sm:grid-cols-2 sm:p-4">
+              <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="group flex min-h-[112px] items-end justify-between rounded-[1.1rem] bg-[#f3c969] p-5 text-[#35192b] transition-transform hover:-translate-y-1" data-testid="link-whatsapp-hero-box">
+                <span><span className="block font-mono-custom text-[9px] uppercase tracking-[0.18em] text-[#35192b]/60">Fastest way to book</span><span className="mt-3 block font-display text-2xl font-semibold tracking-[-0.05em]">Message on WhatsApp</span></span>
+                <SiWhatsapp size={24} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </a>
+              <button onClick={onCall} className="group flex min-h-[112px] items-end justify-between rounded-[1.1rem] border border-[#f6dcc0]/25 p-5 text-left text-[#f6dcc0] transition-colors hover:border-[#f3c969] hover:text-[#f3c969]" data-testid="button-call-hero-box">
+                <span><span className="block font-mono-custom text-[9px] uppercase tracking-[0.18em] text-[#f6dcc0]/55">Prefer to speak?</span><span className="mt-3 block font-display text-2xl font-semibold tracking-[-0.05em]">Call the studio</span></span>
+                <Phone size={24} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
               </button>
             </div>
           </Reveal>
@@ -159,7 +179,7 @@ function StudioSection() {
               <p className="mb-5 font-mono-custom text-[10px] uppercase tracking-[0.22em] text-[#e15b37]">01 / The room</p>
               <h2 className="max-w-[760px] font-display text-[clamp(2.8rem,6vw,6.2rem)] font-semibold leading-[0.9] tracking-[-0.07em]">Not just steps.<br /><span className="text-[#e15b37]">A shift in how you stand.</span></h2>
             </div>
-            <p className="max-w-[300px] text-sm leading-7 text-[#35192b]/60 lg:pb-2">Saikumar Dance Studio is where curious first-timers and hungry performers share the same floor. No audition to belong. No ceiling on how far you can go.</p>
+            <p className="max-w-[300px] text-sm leading-7 text-[#35192b]/60 lg:pb-2">Heart Beaters is where curious first-timers and hungry performers share the same floor. No audition to belong. No ceiling on how far you can go.</p>
           </div>
         </Reveal>
         <div className="mt-16 grid gap-5 lg:mt-24 lg:grid-cols-[1.2fr_.8fr]">
@@ -217,7 +237,7 @@ function ClassesSection({ onBook }: { onBook: () => void }) {
                     <span className="mr-2 hidden text-right font-mono-custom text-[9px] uppercase tracking-[0.12em] text-[#f6dcc0]/45 sm:block">{item.level}</span>
                     <span className={`grid size-10 place-items-center rounded-full border border-[#f6dcc0]/25 transition-all ${isOpen ? 'rotate-45 bg-[#f3c969] text-[#35192b]' : 'group-hover:border-[#f3c969]'}`}><Plus size={17} /></span>
                   </button>
-                  <div className={`grid transition-[grid-template-rows,opacity] duration-300 ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}><div className="overflow-hidden"><div className="grid gap-5 pb-7 pl-12 sm:grid-cols-[1fr_1fr_140px] sm:items-center sm:pl-12"><p className="text-sm leading-7 text-[#f6dcc0]/65">{item.copy}</p><p className="font-mono-custom text-[9px] uppercase tracking-[0.16em] text-[#e15b37]">{item.tag}</p><button onClick={onBook} className="flex items-center gap-2 text-left text-[10px] font-extrabold uppercase tracking-[0.15em] text-[#f3c969]" data-testid={`button-class-book-${item.number}`}>Try a class <MoveRight size={14} /></button></div></div></div>
+                  <div className={`grid transition-[grid-template-rows,opacity] duration-300 ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}><div className="overflow-hidden"><div className="grid gap-5 pb-7 pl-12 sm:grid-cols-[1fr_1fr_170px] sm:items-center sm:pl-12"><p className="text-sm leading-7 text-[#f6dcc0]/65">{item.copy}</p><p className="font-mono-custom text-[9px] uppercase tracking-[0.16em] text-[#e15b37]">{item.tag}</p><button onClick={onBook} className="flex items-center gap-2 text-left text-[10px] font-extrabold uppercase tracking-[0.15em] text-[#f3c969]" data-testid={`button-class-book-${item.number}`}>Book via WhatsApp <SiWhatsapp size={14} /></button></div></div></div>
                 </div>
               </Reveal>
             );
@@ -250,7 +270,7 @@ function ScheduleSection({ onBook }: { onBook: () => void }) {
   return (
     <section className="bg-[#f4eadc] py-20 text-[#35192b] sm:py-28">
       <div className="mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-12">
-        <Reveal><div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:items-end"><div><p className="mb-5 font-mono-custom text-[10px] uppercase tracking-[0.22em] text-[#e15b37]">04 / Make a date</p><h2 className="max-w-[450px] font-display text-[clamp(2.8rem,5vw,5.2rem)] font-semibold leading-[0.88] tracking-[-0.07em]">Your week,<br /><span className="text-[#e15b37]">with a beat.</span></h2></div><div className="grid gap-3 sm:grid-cols-3"><div className="rounded-2xl bg-[#35192b] p-5 text-[#f6dcc0]"><CalendarDays size={18} className="text-[#f3c969]" /><p className="mt-9 font-mono-custom text-[10px] uppercase tracking-[0.13em] text-[#f6dcc0]/55">Weekday evenings</p><p className="mt-2 font-display text-xl">6:30 — 8:30</p></div><div className="rounded-2xl border border-[#35192b]/15 p-5"><Clock3 size={18} className="text-[#e15b37]" /><p className="mt-9 font-mono-custom text-[10px] uppercase tracking-[0.13em] text-[#35192b]/50">Saturday sessions</p><p className="mt-2 font-display text-xl">10:00 — 13:00</p></div><button onClick={onBook} className="group flex flex-col justify-between rounded-2xl bg-[#e15b37] p-5 text-left text-[#fff1df] transition-transform hover:-translate-y-1" data-testid="button-schedule-book"><Send size={18} /><span className="flex items-end justify-between font-display text-xl">Find your slot <ArrowUpRight size={18} className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" /></span></button></div></div></Reveal>
+        <Reveal><div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:items-end"><div><p className="mb-5 font-mono-custom text-[10px] uppercase tracking-[0.22em] text-[#e15b37]">04 / Make a date</p><h2 className="max-w-[450px] font-display text-[clamp(2.8rem,5vw,5.2rem)] font-semibold leading-[0.88] tracking-[-0.07em]">Your week,<br /><span className="text-[#e15b37]">with a beat.</span></h2></div><div className="grid gap-3 sm:grid-cols-3"><div className="rounded-2xl bg-[#35192b] p-5 text-[#f6dcc0]"><CalendarDays size={18} className="text-[#f3c969]" /><p className="mt-9 font-mono-custom text-[10px] uppercase tracking-[0.13em] text-[#f6dcc0]/55">Weekday evenings</p><p className="mt-2 font-display text-xl">6:30 — 8:30</p></div><div className="rounded-2xl border border-[#35192b]/15 p-5"><Clock3 size={18} className="text-[#e15b37]" /><p className="mt-9 font-mono-custom text-[10px] uppercase tracking-[0.13em] text-[#35192b]/50">Saturday sessions</p><p className="mt-2 font-display text-xl">10:00 — 13:00</p></div><button onClick={onBook} className="group flex flex-col justify-between rounded-2xl bg-[#e15b37] p-5 text-left text-[#fff1df] transition-transform hover:-translate-y-1" data-testid="button-schedule-book"><SiWhatsapp size={18} /><span className="flex items-end justify-between font-display text-xl">Book via WhatsApp <ArrowUpRight size={18} className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" /></span></button></div></div></Reveal>
       </div>
     </section>
   );
@@ -268,7 +288,7 @@ function VisitSection({ onBook, onCall }: { onBook: () => void; onCall: () => vo
   return (
     <section id="visit" className="bg-[#f4eadc] py-24 text-[#35192b] sm:py-32 lg:py-40">
       <div className="mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-12">
-        <Reveal><div className="grid gap-14 lg:grid-cols-[1fr_.8fr]"><div><p className="mb-5 font-mono-custom text-[10px] uppercase tracking-[0.22em] text-[#e15b37]">05 / Come through</p><h2 className="max-w-[700px] font-display text-[clamp(3.2rem,7vw,7.3rem)] font-semibold leading-[0.84] tracking-[-0.08em]">The first step<br /><span className="text-[#e15b37]">is yours.</span></h2><div className="mt-10 flex flex-wrap gap-3"><button onClick={onBook} className="group flex items-center gap-3 rounded-full bg-[#35192b] px-6 py-4 text-[11px] font-extrabold uppercase tracking-[0.15em] text-[#f6dcc0] transition-transform hover:-translate-y-1" data-testid="button-book-visit">Book a trial class <ArrowUpRight size={15} className="text-[#f3c969]" /></button><button onClick={onCall} className="flex items-center gap-3 rounded-full border border-[#35192b]/25 px-6 py-4 text-[11px] font-extrabold uppercase tracking-[0.15em] transition-colors hover:border-[#e15b37] hover:text-[#e15b37]" data-testid="button-call-visit"><Phone size={15} /> Call the studio</button></div></div><div className="lg:pt-12"><div className="border-t border-[#35192b]/20 pt-6"><div className="flex items-start gap-4"><MapPin size={20} className="mt-1 text-[#e15b37]" /><div><p className="font-display text-xl font-semibold">Bengaluru, Karnataka</p><p className="mt-2 max-w-[230px] text-sm leading-6 text-[#35192b]/55">Studio details and directions are shared when you connect with our team.</p></div></div></div><div className="mt-10 border-t border-[#35192b]/20 pt-6"><div className="flex items-start gap-4"><MessageCircle size={20} className="mt-1 text-[#e15b37]" /><div><p className="font-display text-xl font-semibold">Questions welcome.</p><p className="mt-2 max-w-[230px] text-sm leading-6 text-[#35192b]/55">Send a message with your age, experience, and what you want to explore.</p></div></div></div></div></div></Reveal>
+        <Reveal><div className="grid gap-14 lg:grid-cols-[1fr_.8fr]"><div><p className="mb-5 font-mono-custom text-[10px] uppercase tracking-[0.22em] text-[#e15b37]">05 / Come through</p><h2 className="max-w-[700px] font-display text-[clamp(3.2rem,7vw,7.3rem)] font-semibold leading-[0.84] tracking-[-0.08em]">The first step<br /><span className="text-[#e15b37]">is yours.</span></h2><div className="mt-10 flex flex-wrap gap-3"><a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="group flex items-center gap-3 rounded-full bg-[#35192b] px-6 py-4 text-[11px] font-extrabold uppercase tracking-[0.15em] text-[#f6dcc0] transition-transform hover:-translate-y-1" data-testid="link-whatsapp-visit">Book via WhatsApp <SiWhatsapp size={15} className="text-[#f3c969]" /></a><button onClick={onCall} className="flex items-center gap-3 rounded-full border border-[#35192b]/25 px-6 py-4 text-[11px] font-extrabold uppercase tracking-[0.15em] transition-colors hover:border-[#e15b37] hover:text-[#e15b37]" data-testid="button-call-visit"><Phone size={15} /> Call the studio</button></div></div><div className="lg:pt-12"><div className="border-t border-[#35192b]/20 pt-6"><div className="flex items-start gap-4"><MapPin size={20} className="mt-1 text-[#e15b37]" /><div><p className="font-display text-xl font-semibold">Bengaluru, Karnataka</p><p className="mt-2 max-w-[230px] text-sm leading-6 text-[#35192b]/55">Studio details and directions are shared when you connect with our team.</p></div></div></div><div className="mt-10 border-t border-[#35192b]/20 pt-6"><div className="flex items-start gap-4"><MessageCircle size={20} className="mt-1 text-[#e15b37]" /><div><p className="font-display text-xl font-semibold">Questions welcome.</p><p className="mt-2 max-w-[230px] text-sm leading-6 text-[#35192b]/55">Send a message with your age, experience, and what you want to explore.</p></div></div></div></div></div></Reveal>
       </div>
     </section>
   );
@@ -278,8 +298,8 @@ function Footer({ onBook, onCall }: { onBook: () => void; onCall: () => void }) 
   return (
     <footer className="bg-[#e15b37] text-[#35192b]">
       <div className="mx-auto max-w-[1320px] px-5 pb-8 pt-16 sm:px-8 sm:pt-24 lg:px-12">
-        <Reveal><div className="flex flex-col justify-between gap-10 border-b border-[#35192b]/25 pb-14 md:flex-row md:items-end"><div><p className="font-mono-custom text-[10px] uppercase tracking-[0.22em] text-[#35192b]/60">Ready when you are</p><h2 className="mt-5 max-w-[650px] font-display text-[clamp(3rem,7vw,7.8rem)] font-semibold leading-[0.82] tracking-[-0.09em]">Turn the<br />music <span className="text-[#f3c969]">up.</span></h2></div><div className="flex flex-col items-start gap-3"><button onClick={onBook} className="group flex items-center gap-4 rounded-full bg-[#35192b] px-6 py-4 text-[11px] font-extrabold uppercase tracking-[0.15em] text-[#f6dcc0]" data-testid="button-book-footer">Start with a trial <ArrowUpRight size={16} className="text-[#f3c969] transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" /></button><button onClick={onCall} className="px-2 py-2 text-left text-[10px] font-bold uppercase tracking-[0.14em] text-[#35192b]/65 hover:text-[#35192b]" data-testid="button-call-footer">Prefer to talk? Call the studio</button></div></div></Reveal>
-        <div className="flex flex-col justify-between gap-8 pt-8 sm:flex-row sm:items-center"><BrandMark /><div className="flex items-center gap-3"><a href={STUDIO_CONTACT.instagram} target="_blank" rel="noreferrer" className="grid size-10 place-items-center rounded-full border border-[#35192b]/25 transition-colors hover:bg-[#35192b] hover:text-[#f6dcc0]" aria-label="Open Instagram" data-testid="link-instagram-footer"><SiInstagram size={15} /></a><a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="grid size-10 place-items-center rounded-full border border-[#35192b]/25 transition-colors hover:bg-[#35192b] hover:text-[#f6dcc0]" aria-label="Message on WhatsApp" data-testid="link-whatsapp-footer"><SiWhatsapp size={16} /></a></div><p className="font-mono-custom text-[9px] uppercase tracking-[0.16em] text-[#35192b]/55">© {new Date().getFullYear()} Saikumar Dance Studio</p></div>
+        <Reveal><div className="flex flex-col justify-between gap-10 border-b border-[#35192b]/25 pb-14 md:flex-row md:items-end"><div><p className="font-mono-custom text-[10px] uppercase tracking-[0.22em] text-[#35192b]/60">Ready when you are</p><h2 className="mt-5 max-w-[650px] font-display text-[clamp(3rem,7vw,7.8rem)] font-semibold leading-[0.82] tracking-[-0.09em]">Turn the<br />music <span className="text-[#f3c969]">up.</span></h2></div><div className="flex flex-col items-start gap-3"><a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="group flex items-center gap-4 rounded-full bg-[#35192b] px-6 py-4 text-[11px] font-extrabold uppercase tracking-[0.15em] text-[#f6dcc0]" data-testid="link-whatsapp-footer">Book via WhatsApp <SiWhatsapp size={16} className="text-[#f3c969] transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" /></a><button onClick={onCall} className="px-2 py-2 text-left text-[10px] font-bold uppercase tracking-[0.14em] text-[#35192b]/65 hover:text-[#35192b]" data-testid="button-call-footer">Prefer to talk? Call the studio</button></div></div></Reveal>
+        <div className="flex flex-col justify-between gap-8 pt-8 sm:flex-row sm:items-center"><BrandMark /><div className="flex items-center gap-3"><a href={STUDIO_CONTACT.instagram} target="_blank" rel="noreferrer" className="grid size-10 place-items-center rounded-full border border-[#35192b]/25 transition-colors hover:bg-[#35192b] hover:text-[#f6dcc0]" aria-label="Open Instagram" data-testid="link-instagram-footer"><SiInstagram size={15} /></a><a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="grid size-10 place-items-center rounded-full border border-[#35192b]/25 transition-colors hover:bg-[#35192b] hover:text-[#f6dcc0]" aria-label="Message on WhatsApp" data-testid="link-whatsapp-footer"><SiWhatsapp size={16} /></a></div><p className="font-mono-custom text-[9px] uppercase tracking-[0.16em] text-[#35192b]/55">© {new Date().getFullYear()} Heart Beaters - Dance Studio</p></div>
       </div>
     </footer>
   );
@@ -307,18 +327,19 @@ function CallModal({ open, onClose }: { open: boolean; onClose: () => void }) {
 }
 
 function Home() {
-  const [bookingOpen, setBookingOpen] = useState(false);
   const [callOpen, setCallOpen] = useState(false);
-  const openBooking = () => setBookingOpen(true);
+  const openBooking = () => {
+    window.open(WHATSAPP_LINK, '_blank', 'noopener,noreferrer');
+  };
   const openCall = () => {
     if (STUDIO_CONTACT.phone) window.location.href = `tel:${STUDIO_CONTACT.phone}`;
     else setCallOpen(true);
   };
   return (
     <div className="noise min-h-[100dvh] overflow-x-hidden bg-[#f4eadc]">
-      <Header onBook={openBooking} />
+      <Header onBook={openBooking} onCall={openCall} />
       <main>
-        <Hero onBook={openBooking} />
+        <Hero onBook={openBooking} onCall={openCall} />
         <Marquee />
         <StudioSection />
         <ClassesSection onBook={openBooking} />
@@ -328,7 +349,6 @@ function Home() {
         <VisitSection onBook={openBooking} onCall={openCall} />
       </main>
       <Footer onBook={openBooking} onCall={openCall} />
-      <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} />
       <CallModal open={callOpen} onClose={() => setCallOpen(false)} />
     </div>
   );
