@@ -9,6 +9,7 @@ import { SiInstagram, SiWhatsapp } from 'react-icons/si';
 import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
 import heroImage from './assets/dance-hero.jpg';
 import detailImage from './assets/dance-detail.jpg';
+import logoImage from '@assets/IMG-20260917-WA0015_1789654133136.jpg';
 
 const queryClient = new QueryClient();
 
@@ -18,8 +19,9 @@ const STUDIO_CONTACT = {
   instagram: 'https://www.instagram.com/saikumardance_studio?stkn=b3V3ZXJxZXR4aHBp',
 };
 
+const WHATSAPP_PHONE = '916302083760';
 const WHATSAPP_MESSAGE = 'Hi Heart Beaters - Dance Studio, I would love to know more about classes and booking a session.';
-const WHATSAPP_LINK = `https://wa.me/?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 type RevealProps = { children: ReactNode; className?: string; delay?: 1 | 2 | 3 };
 
@@ -44,8 +46,7 @@ function BrandMark({ light = false }: { light?: boolean }) {
   return (
     <a href="#top" className="group inline-flex items-center gap-3" data-testid="link-brand">
       <span className={`relative grid size-10 place-items-center overflow-hidden rounded-full border ${light ? 'border-[#f6dcc0]/35 bg-[#f6dcc0]/10' : 'border-[#35192b]/20 bg-[#35192b]'}`}>
-        <span className={`font-display text-[17px] font-bold tracking-[-0.12em] ${light ? 'text-[#f3c969]' : 'text-[#f3c969]'}`}>HB</span>
-        <span className="absolute -bottom-3 -right-1 size-5 rounded-full bg-[#e15b37] transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+        <img src={logoImage} alt="Heart Beaters Dance Studio logo" className="size-full object-cover transition-transform duration-500 group-hover:scale-110" />
       </span>
       <span className={`font-display text-[14px] font-bold uppercase tracking-[0.1em] ${light ? 'text-[#f6dcc0]' : 'text-[#35192b]'}`}>
         Heart Beaters <span className={light ? 'text-[#f3c969]' : 'text-[#e15b37]'}>Dance Studio</span>
