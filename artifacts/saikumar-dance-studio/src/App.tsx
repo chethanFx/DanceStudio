@@ -22,6 +22,7 @@ const STUDIO_CONTACT = {
 const WHATSAPP_PHONE = '916302083760';
 const WHATSAPP_MESSAGE = 'Hi Heart Beaters - Dance Studio, I would love to know more about classes and booking a session.';
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+const STUDIO_LOCATION = 'Venkatagiri, Andhra Pradesh, India';
 
 type RevealProps = { children: ReactNode; className?: string; delay?: 1 | 2 | 3 };
 
@@ -107,7 +108,7 @@ function Header({ onBook, onCall }: { onBook: () => void; onCall: () => void }) 
 
 function Hero({ onBook, onCall }: { onBook: () => void; onCall: () => void }) {
   return (
-    <section id="top" className="hero-grid hero-glow image-wash relative flex min-h-[760px] items-end overflow-hidden bg-[#35192b] text-[#f6dcc0] sm:min-h-[820px] lg:min-h-[900px]">
+    <section id="top" className="hero-grid hero-glow hero-frame image-wash relative flex min-h-[760px] items-end overflow-hidden bg-[#35192b] text-[#f6dcc0] sm:min-h-[820px] lg:min-h-[900px]">
       <img src={heroImage} alt="Dancer moving through warm studio light" className="absolute inset-0 h-full w-full object-cover opacity-70" />
       <div className="absolute inset-0 bg-[#35192b]/35" />
       <div className="relative z-10 mx-auto w-full max-w-[1320px] px-5 pb-16 pt-36 sm:px-8 sm:pb-20 lg:px-12 lg:pb-28">
@@ -115,11 +116,11 @@ function Hero({ onBook, onCall }: { onBook: () => void; onCall: () => void }) {
           <Reveal>
             <div className="mb-7 flex items-center gap-3">
               <span className="size-2 rounded-full bg-[#f3c969]" />
-              <p className="font-mono-custom text-[10px] uppercase tracking-[0.22em] text-[#f6dcc0]/70">A movement practice in Bengaluru</p>
+              <p className="font-mono-custom text-[10px] uppercase tracking-[0.22em] text-[#f6dcc0]/70">A movement practice in Venkatagiri</p>
             </div>
           </Reveal>
           <Reveal delay={1}>
-            <h1 className="font-display text-[clamp(4.3rem,12vw,10.5rem)] font-semibold leading-[0.82] tracking-[-0.085em] text-[#f6dcc0]">
+              <h1 className="font-display text-[clamp(4.3rem,12vw,10.5rem)] font-semibold leading-[0.82] tracking-[-0.085em] text-[#f6dcc0] drop-shadow-[0_12px_32px_rgba(37,18,30,.22)]">
               Find your<br /><span className="text-[#f3c969]">full volume.</span>
             </h1>
           </Reveal>
@@ -149,7 +150,7 @@ function Hero({ onBook, onCall }: { onBook: () => void; onCall: () => void }) {
             <span className="grid size-9 place-items-center rounded-full border border-[#f6dcc0]/30"><ChevronDown size={15} /></span>
             <span className="font-mono-custom text-[9px] uppercase tracking-[0.2em] text-[#f6dcc0]/55">Scroll into the room</span>
           </div>
-          <p className="hidden font-mono-custom text-[9px] uppercase tracking-[0.2em] text-[#f6dcc0]/55 sm:block">Est. 2014 · Bengaluru</p>
+          <p className="hidden font-mono-custom text-[9px] uppercase tracking-[0.2em] text-[#f6dcc0]/55 sm:block">Venkatagiri · Andhra Pradesh</p>
         </Reveal>
       </div>
       <div className="absolute bottom-16 right-5 hidden rotate-90 items-center gap-3 text-[#f6dcc0]/45 lg:flex">
@@ -289,7 +290,7 @@ function VisitSection({ onBook, onCall }: { onBook: () => void; onCall: () => vo
   return (
     <section id="visit" className="bg-[#f4eadc] py-24 text-[#35192b] sm:py-32 lg:py-40">
       <div className="mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-12">
-        <Reveal><div className="grid gap-14 lg:grid-cols-[1fr_.8fr]"><div><p className="mb-5 font-mono-custom text-[10px] uppercase tracking-[0.22em] text-[#e15b37]">05 / Come through</p><h2 className="max-w-[700px] font-display text-[clamp(3.2rem,7vw,7.3rem)] font-semibold leading-[0.84] tracking-[-0.08em]">The first step<br /><span className="text-[#e15b37]">is yours.</span></h2><div className="mt-10 flex flex-wrap gap-3"><a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="group flex items-center gap-3 rounded-full bg-[#35192b] px-6 py-4 text-[11px] font-extrabold uppercase tracking-[0.15em] text-[#f6dcc0] transition-transform hover:-translate-y-1" data-testid="link-whatsapp-visit">Book via WhatsApp <SiWhatsapp size={15} className="text-[#f3c969]" /></a><button onClick={onCall} className="flex items-center gap-3 rounded-full border border-[#35192b]/25 px-6 py-4 text-[11px] font-extrabold uppercase tracking-[0.15em] transition-colors hover:border-[#e15b37] hover:text-[#e15b37]" data-testid="button-call-visit"><Phone size={15} /> Call the studio</button></div></div><div className="lg:pt-12"><div className="border-t border-[#35192b]/20 pt-6"><div className="flex items-start gap-4"><MapPin size={20} className="mt-1 text-[#e15b37]" /><div><p className="font-display text-xl font-semibold">Bengaluru, Karnataka</p><p className="mt-2 max-w-[230px] text-sm leading-6 text-[#35192b]/55">Studio details and directions are shared when you connect with our team.</p></div></div></div><div className="mt-10 border-t border-[#35192b]/20 pt-6"><div className="flex items-start gap-4"><MessageCircle size={20} className="mt-1 text-[#e15b37]" /><div><p className="font-display text-xl font-semibold">Questions welcome.</p><p className="mt-2 max-w-[230px] text-sm leading-6 text-[#35192b]/55">Send a message with your age, experience, and what you want to explore.</p></div></div></div></div></div></Reveal>
+        <Reveal><div className="grid gap-14 lg:grid-cols-[1fr_.8fr]"><div><p className="mb-5 font-mono-custom text-[10px] uppercase tracking-[0.22em] text-[#e15b37]">05 / Come through</p><h2 className="max-w-[700px] font-display text-[clamp(3.2rem,7vw,7.3rem)] font-semibold leading-[0.84] tracking-[-0.08em]">The first step<br /><span className="text-[#e15b37]">is yours.</span></h2><div className="mt-10 flex flex-wrap gap-3"><a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="group flex items-center gap-3 rounded-full bg-[#35192b] px-6 py-4 text-[11px] font-extrabold uppercase tracking-[0.15em] text-[#f6dcc0] transition-transform hover:-translate-y-1" data-testid="link-whatsapp-visit">Book via WhatsApp <SiWhatsapp size={15} className="text-[#f3c969]" /></a><button onClick={onCall} className="flex items-center gap-3 rounded-full border border-[#35192b]/25 px-6 py-4 text-[11px] font-extrabold uppercase tracking-[0.15em] transition-colors hover:border-[#e15b37] hover:text-[#e15b37]" data-testid="button-call-visit"><Phone size={15} /> Call the studio</button></div></div><div className="lg:pt-12"><div className="border-t border-[#35192b]/20 pt-6"><div className="flex items-start gap-4"><MapPin size={20} className="mt-1 text-[#e15b37]" /><div><p className="font-display text-xl font-semibold">{STUDIO_LOCATION}</p><p className="mt-2 max-w-[230px] text-sm leading-6 text-[#35192b]/55">Studio details and directions are shared when you connect with our team.</p></div></div></div><div className="mt-10 border-t border-[#35192b]/20 pt-6"><div className="flex items-start gap-4"><MessageCircle size={20} className="mt-1 text-[#e15b37]" /><div><p className="font-display text-xl font-semibold">Questions welcome.</p><p className="mt-2 max-w-[230px] text-sm leading-6 text-[#35192b]/55">Send a message with your age, experience, and what you want to explore.</p></div></div></div></div></div></Reveal>
       </div>
     </section>
   );
