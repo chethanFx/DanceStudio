@@ -1,7 +1,12 @@
 [build]
   base = "artifacts/saikumar-dance-studio"
-  command = "npm run build"
+  command = "npm install --include=dev && npm run build"
   publish = "dist"
+
+[build.environment]
+  NODE_ENV = "development"
+  NPM_CONFIG_PRODUCTION = "false"
+  NPM_FLAGS = "--include=dev"
 
 [[redirects]]
   from = "/*"

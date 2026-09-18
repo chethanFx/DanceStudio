@@ -56,11 +56,36 @@ function BrandMark({ light = false }: { light?: boolean }) {
   );
 }
 
+function ScrollProgress() {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const updateProgress = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0);
+    };
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    return () => {
+      window.removeEventListener('scroll', updateProgress);
+      window.removeEventListener('resize', updateProgress);
+    };
+  }, []);
+  return <div className="fixed left-0 right-0 top-0 z-[70] h-[2px] bg-[#f6dcc0]/10" aria-hidden="true"><div className="h-full bg-[#f3c969] shadow-[0_0_14px_rgba(243,201,105,.85)] transition-[width] duration-150" style={{ width: `${progress}%` }} /></div>;
+}
+
 function Header({ onBook, onCall }: { onBook: () => void; onCall: () => void }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const navItems = [['Studio', '#studio'], ['Classes', '#classes'], ['The rhythm', '#rhythm'], ['Visit', '#visit']];
+  useEffect(() => {
+    const updateHeader = () => setScrolled(window.scrollY > 28);
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    return () => window.removeEventListener('scroll', updateHeader);
+  }, []);
   return (
-    <header className="absolute left-0 right-0 top-0 z-40">
+    <header className={`fixed left-0 right-0 top-0 z-40 transition-all duration-500 ${scrolled ? 'bg-[#35192b]/78 shadow-[0_12px_45px_rgba(20,8,18,.2)] backdrop-blur-xl' : 'bg-transparent'}`}>
       <div className="mx-auto flex max-w-[1320px] items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
         <BrandMark light />
         <nav className="hidden items-center gap-8 md:flex" aria-label="Primary navigation">
@@ -104,6 +129,10 @@ function Header({ onBook, onCall }: { onBook: () => void; onCall: () => void }) 
       )}
     </header>
   );
+}
+
+function FloatingWhatsApp() {
+  return <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="fixed bottom-5 right-5 z-40 hidden items-center gap-3 rounded-full border border-[#35192b]/15 bg-[#f3c969] px-4 py-3 text-[#35192b] shadow-[0_14px_35px_rgba(53,25,43,.22)] transition-transform hover:-translate-y-1 sm:flex" data-testid="link-whatsapp-floating"><span className="grid size-8 place-items-center rounded-full bg-[#35192b] text-[#f3c969]"><SiWhatsapp size={15} /></span><span className="pr-1 text-[10px] font-extrabold uppercase tracking-[0.14em]">Book your first beat</span></a>;
 }
 
 function Hero({ onBook, onCall }: { onBook: () => void; onCall: () => void }) {
@@ -339,6 +368,7 @@ function Home() {
   };
   return (
     <div className="noise min-h-[100dvh] overflow-x-hidden bg-[#f4eadc]">
+      <ScrollProgress />
       <Header onBook={openBooking} onCall={openCall} />
       <main>
         <Hero onBook={openBooking} onCall={openCall} />
@@ -351,6 +381,7 @@ function Home() {
         <VisitSection onBook={openBooking} onCall={openCall} />
       </main>
       <Footer onBook={openBooking} onCall={openCall} />
+      <FloatingWhatsApp />
       <CallModal open={callOpen} onClose={() => setCallOpen(false)} />
     </div>
   );
